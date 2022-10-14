@@ -17,4 +17,4 @@ def email():
 
 @app.get('/github')
 def email():
-    return { 'data' : {'github' : 'https://github.com/DevashishMahajan}}  
+    return { 'data' : {'github' : 'https://github.com/DevashishMahajan'}}  
