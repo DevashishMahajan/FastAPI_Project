@@ -29,6 +29,9 @@ class Blog(BaseModel):
     body: str
     published: Optional [bool]
 
+if __name__ = "__main__":
+    uvicorn.run(app, host = "127.0.0.1", port=9000)
+
 @app.post('/blog')
 def create_blog(blog:Blog):
     return {'data': f'Blog is created with title as {blog.title} with content {Blog.body}'}
