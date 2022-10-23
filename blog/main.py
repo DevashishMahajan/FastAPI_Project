@@ -3,6 +3,7 @@ from . import schemas, models
 from . database import engine, sessionLocal
 from sqlalchemy.orm import Session
 
+#make instance of FastAPI 
 app = FastAPI()
 
 models.Base.metadata.create_all(engine)
@@ -23,6 +24,16 @@ def create(request: schemas.blog, db: Session = Depends(get_db)):
 
     return new_blog
 
+
+@app.get('/blog/{id}', status_code=200, response_model=schemas.ShowBlog)
+def show (id, response : Response, db: Session= Depends(get_db)):
+    blog= db.query(models.Blog).filter(models.Blog.id= id).first()
+
+    if not blog:
+        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND,
+                            detail= f"Blog with the id {id} is not available")
+            
+    return blog
 
 
 # Add user and user detailes to database
